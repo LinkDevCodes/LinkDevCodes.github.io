@@ -103,6 +103,6 @@ theme: kaze
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: 你的代码仓库
+  repo: https://github.com/LinkDevCodes/LinkDevCodes.github.io.git
   branch: html
   message: blog
