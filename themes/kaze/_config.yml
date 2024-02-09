@@ -1,11 +1,11 @@
 #------------------------
 # Header config
-title: 网站标题
-author: 作者名
+title: Link的博客
+author: Link是个赶路人
 # 将你的qq替换上去即可让网站的头像显示你为你qq的头像
-logo_img: https://q2.qlogo.cn/headimg_dl?dst_uin=你的qq&spec=5
-author_img: https://q2.qlogo.cn/headimg_dl?dst_uin=你的qq&spec=5
-author_description: 描述
+logo_img: https://q2.qlogo.cn/headimg_dl?dst_uin=3434249202&spec=5
+author_img: https://q2.qlogo.cn/headimg_dl?dst_uin=3434249202&spec=5
+author_description: 爱好编程与摄影
 #------------------------
 # Navbar config
 #------------------------
@@ -201,7 +201,7 @@ artitalk:
   appKey: 
 editedArticle:
   enable: true
-  repo: https://github.com/shuangxunian/shuangxunian.github.io
+  repo: https://github.com/LinkDevCodes/LinkDevCodes.github.io
 #------------------------
 # minify config
 # css minify uses autoprefixer and clean-css
