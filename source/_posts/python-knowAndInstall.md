@@ -77,7 +77,7 @@ make install
 ```
 chmod +x script
 ```
-并在脚本的顶部放置一个合适的Shebang线。一个很好的选择通常是: ***#!/usr/bin/env/python3 ***
+并在脚本的顶部放置一个合适的Shebang线。一个很好的选择通常是: #!/usr/bin/env/python3
 将在整个**PATH**中搜索Python解释器。但是某些Unix系统可能没有**env**命令，因此可能需要将 usr/bin/python3硬编码为解释器路径。
 
 ## python的执行
