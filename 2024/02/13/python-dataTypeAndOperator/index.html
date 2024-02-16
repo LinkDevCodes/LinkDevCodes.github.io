@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="Salute to life, salute to us">
+  <link 
+    rel="icon" 
+    href="https://q2.qlogo.cn/headimg_dl?dst_uin=3434249202&amp;spec=5">
+  <title>python的数据类型与基本运算符的初步认知</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="python的数据类型与基本运算符的初步认知">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://example.com/2024/02/13/python-dataTypeAndOperator/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://q2.qlogo.cn/headimg_dl?dst_uin=3434249202&amp;spec=5">
+    
+    
+      <meta 
+        property="og:img" 
+        content="本篇会介绍python的数据类型与基本运算符的初步认知">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2024-02-13">
+      <meta 
+        property="og:article:modified_time" 
+        content="2024-02-13">
+      <meta 
+        property="og:article:author" 
+        content="Link是个赶路人">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="python">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="https://q2.qlogo.cn/headimg_dl?dst_uin=3434249202&spec=5" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">Link的博客</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://q2.qlogo.cn/headimg_dl?dst_uin=3434249202&spec=5" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Link是个赶路人</p>
+<p class="author-description">爱好编程与摄影</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>2</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>1</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>1</span>
+    <span>标签</span>
+  </a>
+</div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/shuangxunian">
+          <i class="iconfont icon-github society-icon"></i>
+        </a>
+      </div>
+    
+  </div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%BC%95%E8%AF%AD"><span class="toc-text">本章引语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">变量名命名规范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%BD%A2%E6%95%B0-int%E5%9E%8B"><span class="toc-text">整形数: int型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6-x3D"><span class="toc-text">赋值操作符(&#x3D;)</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/%E7%BC%96%E7%A8%8B/">
+        <div class="categories-list-item">
+          编程
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/python/" 
+        title="python">
+        <div class="tags-list-item">python</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      python的数据类型与基本运算符的初步认知
+    </h1>
+  </header>
+  
+    <div class="post-meta post-show-meta">
+      <a href="https://github.com/LinkDevCodes/LinkDevCodes.github.io/edit/main/source/_posts/python-dataTypeAndOperator.md" target="_blank">编辑原文</a>
+    </div>
+  
+  <div class="post-meta post-show-meta">
+    <time datetime="2024-02-13T00:00:00.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2024-02-13</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/%E7%BC%96%E7%A8%8B/" 
+          class="post-meta-link">
+          编程
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.9k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/python/" 
+            class="post-meta-link">
+            python
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="本章引语"><a href="#本章引语" class="headerlink" title="本章引语"></a>本章引语</h2><p>在一个程序执行的过程中会产生很多很多的运算结果，这些结果会被储存在计算机中，计算机内存中所储存的数据类型各不相同，可能是整型数、浮点数、布尔型、列表或者类的实例等等，当然，计算机所储存的形式人类是难以看懂的 <del>(其实根本看不懂)</del> ，然而我们在程序编写时需要调用他们怎么办？我们应当如何对他们进行操作呢？数据类型对数据的操作会有什么影响呢？</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>下面先为大家以Q&amp;A(问答)的形式来简单普及一下基本知识:</p>
+<blockquote>
+<ul>
+<li>Question: 什么是变量呢？</li>
+<li>Answer: 变量就是用于储存数据的量且在程序运行当中其具体内容可变。那么常量就是与变量的相反概念，及其具体内容在除了 <strong>声明(告诉计算机，你对此变量做出了定义)</strong> 该变量外，其他任何时刻都不允许改变它的值。然而，python中并没有与C++等语言中 <strong>const</strong> 关键字功能相同或相近的关键字。也就说在不引入任何 <strong>库(从外部引入的模块)</strong> 的情况下，python中不存在原生常量。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Question: 什么是变量名呢？</li>
+<li>Answer: 就像本章引语中提及的一样，计算机中储存的数据人类无法直接访问，而 <strong>变量</strong> 是勾起人与计算机的桥梁，而 <strong>变量名</strong> 则是其桥梁名称，是人机交互的接口，对于人来说 <strong>变量名</strong> 是变量的名字，而计算机眼里变量名背后则是一个内存的地址 <em><strong>(注意: 这与指针不同，指针是其储存的值是地址，同时，python中别没有像C, C++, Java等语言中直接的指针操作，即 &amp; 取地址运算 与 * 地址解析运算)</strong></em> ，所以，变量名充当的是《英汉大词典》的功能，便于人与计算机的沟通。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Question: 什么是动态语言？它和静态语言有什么区别？</li>
+<li>Answer: <strong>动态语言</strong>和<strong>静态语言</strong>的主要区别在于<strong>变量类型</strong>和代码执行时的确定性。<blockquote>
+<ul>
+<li>静态语言中，变量的<strong>数据类型</strong>是在编译时确定的，这意味着在使用变量之前必须明确<strong>声明</strong>其数据类型。像Java和C++等就是<strong>静态类型</strong>的典型代表。静态类型的语言在编译时会进行类型匹配检查，这要求开发者在编写代码时更加小心，以避免类型错误。静态类型的语言通常提供更强的<strong>代码安全性</strong>和<strong>可预测性</strong>。</li>
+<li><strong>动态语言</strong>(即<strong>弱类型语</strong>)在运行时才确定变量的数据类型。在动态语言中，开发者不需要在声明变量时指定其数据类型，而是通过赋值操作来确定变量的类型。像python和javascript就是<strong>动态类型</strong>的典型代表。动态语言的这种特性使得编程更加<strong>灵活</strong>和<strong>高效</strong>，但同时也可能增加<strong>代码理解</strong>和<strong>维护</strong>的难度。动态语言适合于<strong>快速开发</strong>和需要<strong>灵活性</strong>的项目，尤其是那些依赖于快速反馈和迭代的开发过程。</li>
+<li>静态语言的优势在于其严格的<strong>类型检查</strong>和代码的<strong>可预测性</strong>，而动态语言的优势在于其<strong>灵活性</strong>和<strong>开发效率</strong>。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<h3 id="变量名命名规范"><a href="#变量名命名规范" class="headerlink" title="变量名命名规范"></a>变量名命名规范</h3><ol>
+<li>变量名只能包含英文字母、数字及下划线。</li>
+<li>变量名必须以英文字母或下划线开头，不能以数字开头。</li>
+<li>变量名是区分大小写的，python是大小写敏感的语言(如Var与var并不是一个变量)。</li>
+<li>变量名不得与python的关键字重复。</li>
+</ol>
+<p>下面是一些例子:</p>
+<blockquote>
+<ul>
+<li>首先是合法的变量名:<br>variable, qwert123, First, CONSTANT, publicVarivable, _protected, __private, _doc_, __init__, student_Number, make_Int_To_String, changeBooleanToInt</li>
+<li>然后是非法的变量名:<br>111, 123abc, #rnvonv, :wschu46, !x64_, for, with, def</li>
+</ul>
+</blockquote>
+<p>但是百密一疏，大家仍有一下几点需要注意:</p>
+<ol>
+<li>python是<strong>动态语言</strong>,大家要避免变量名的重复的问题，因为python在类型改变时并不会报错，随着代码量的增加，debug(即排除问题的过程)会变得困难，所以大家尽可能的避免一些没有意义的变量名。</li>
+<li>常量的变量名全部大写，这并不是硬性的语法要求，而是全球代码界约定俗成的规则，这样可以提高代码的<strong>可读性</strong>，有助于理解，像python这样没有原生常量的语言，常量的变量名全部大写也可以一定程度上减少其被更改的可能性(通俗的说，就是可以给大家一个提醒，一看就知道这是一个常量)。</li>
+<li>若变量名是由多个单词组成的，按照约定俗成的内容，应依照下划线式或是驼峰式风格书写。<blockquote>
+<ol>
+<li>驼峰式(除首词外，其他的首字母大写)(<em><strong>作者推荐</strong></em>): isChangeAble, isHasInited, checkInRange.</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<ol start="2">
+<li>下划线式(词与词用下划线分隔): is_Change_able, check_in_range.</li>
+<li>下划线在变量名的开头和结尾，切忌滥用，因为开头与结尾的下划线在python中有特殊含义，开头有一个下划线代表<strong>protected</strong>的访问权限，开头有两个下划线代表<strong>private</strong>的访问权限，开头结尾各有两个下划线的代表是python的特殊<strong>类方法</strong>，而其他的就是<strong>public</strong>访问权限，但是这个早期的学习各位是使用不到的，届时，我会在讲解面向对象的编程时，为大家讲解，现在大家先学习面向过程的编程方式，想不用考虑<strong>对象化</strong>、<strong>模块化</strong>的问题。</li>
+<li>对于有变量名在约定俗称中有着特殊的含义，切忌滥用，如:</li>
+</ol>
+<ul>
+<li>i, j, k, _, temp, tmp, 等等。</li>
+</ul>
+</blockquote>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>在计算机科学和计算机编程中，数据类型或简单的类型是数据的一个属性，它告诉编译器或解释器程序员打算如何使用数据。大多数编程语言支持整数、浮点数、字符和布尔值的基本数据类型。数据类型约束表达式的值，例如变量或函数。此数据类型定义了可以对数据执行的操作、数据的含义以及存储该类型值的方式。数据类型提供一组值，表达式(即变量、函数等)可以从中获取其值。</p>
+<h3 id="整形数-int型"><a href="#整形数-int型" class="headerlink" title="整形数: int型"></a>整形数: int型</h3><p>int: 整形，即整数。</p>
+<p>python的int型，不同于C+等语言的int型，python的int型是一个自带有大整形的int型数，它意味着你可以突破传统int型的数值上限，python的int型上限是计算机操作系统位数有关，如64位操作系统中，int型的取值范围是<br><em><strong>正负2的64次方减1(即-9223372036854775807 ~ 9223372036854775807)</strong></em> 。</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>运算符是用于python中对于python的对象进行操作的符号。<strong>万物皆对象</strong>是python中的重要思想，即使最简单的整形数也是一个对象。而运算符其实会在执行时解析成其对象的一个<strong>成员方法</strong>，这种方法就属于python类的<strong>特殊方法</strong>。所以运算符是可以重新自定义的，可以通过<strong>重载</strong>特殊方法来实现，等同于C++等语言中的<strong>重载运算符</strong>的操作。</p>
+<h3 id="赋值操作符-x3D"><a href="#赋值操作符-x3D" class="headerlink" title="赋值操作符(&#x3D;)"></a>赋值操作符(&#x3D;)</h3>
+  </div>
+  <div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2024/02/11/python-knowAndInstall/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">python的初步认知及安装与执行 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%BC%95%E8%AF%AD"><span class="toc-text">本章引语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">变量名命名规范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%BD%A2%E6%95%B0-int%E5%9E%8B"><span class="toc-text">整形数: int型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6-x3D"><span class="toc-text">赋值操作符(&#x3D;)</span></a></li></ol></li></ol>
+</div>
+
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AB%A0%E5%BC%95%E8%AF%AD"><span class="toc-text">本章引语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%90%8D%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">变量名命名规范</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%BD%A2%E6%95%B0-int%E5%9E%8B"><span class="toc-text">整形数: int型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6-x3D"><span class="toc-text">赋值操作符(&#x3D;)</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-02-13</div>
+        <a href="/2024/02/13/python-dataTypeAndOperator/"><div class="recent-posts-item-content">python的数据类型与基本运算符的初步认知</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-02-11</div>
+        <a href="/2024/02/11/python-knowAndInstall/"><div class="recent-posts-item-content">python的初步认知及安装与执行</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020
+          
+          
+                - 
+                2024
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Link的博客
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+    
+  </body>
+</html>
