@@ -4,7 +4,6 @@ excerpt: 本篇会介绍python的基本介绍与安装教程
 date: 2024-2-11
 categories:
 - 编程
-- 教程
 tags:
 - python
 ---
